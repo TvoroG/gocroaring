@@ -282,6 +282,20 @@ func (rb *Bitmap) Intersect(x2 *Bitmap) bool {
 	return answer
 }
 
+func (rb *Bitmap) IsSubset(x2 *Bitmap) bool {
+	answer := bool(C.roaring_bitmap_is_subset(rb.cpointer, x2.cpointer))
+	runtime.KeepAlive(rb)
+	runtime.KeepAlive(x2)
+	return answer
+}
+
+func (rb *Bitmap) IsStrictSubset(x2 *Bitmap) bool {
+	answer := bool(C.roaring_bitmap_is_strict_subset(rb.cpointer, x2.cpointer))
+	runtime.KeepAlive(rb)
+	runtime.KeepAlive(x2)
+	return answer
+}
+
 // JaccardIndex computes the Jaccard index between two bitmaps
 func (rb *Bitmap) JaccardIndex(x2 *Bitmap) float64 {
 	answer := float64(C.roaring_bitmap_jaccard_index(rb.cpointer, x2.cpointer))
